@@ -1,0 +1,17 @@
+#makefile for assembly program
+#Paul V. Soriano
+#Created: 09 MAR 2006
+#Updated: 29 APR 2006
+CFLAGS= -g -Wall -ansi -pedantic -std=c89 
+creditcalc: main.o creditcalc.o readdata.o calculate.o 
+	gcc $(CFLAGS) main.o creditcalc.o readdata.o calculate.o -o creditcalc
+main.o: main.c
+	gcc $(CFLAGS) -c -o main.o main.c
+creditcalc.o: creditcalc.asm
+	clear;nasm -l outcode -f elf creditcalc.asm
+calculate.o: calculate.asm
+	clear;nasm -l outcode -f elf calculate.asm
+readdata.o: readdata.asm
+	clear;nasm -l outcode -f elf readdata.asm
+clean:
+	rm *.o main creditcalc readdata calculate outcode
